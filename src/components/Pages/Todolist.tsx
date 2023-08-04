@@ -2,7 +2,7 @@ import React, {ChangeEvent, useEffect, useState} from "react";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {Outlet, useNavigate, useParams} from "react-router-dom";
 import {tasksApi, TaskType, todolistsApi} from "../../api/api";
-import {EditableSpan} from "./EditableSpan";
+import {EditableSpan} from "../Todo/EditableSpan";
 import rightArrow from "../../assets/right-arrow.svg";
 
 export type filterValues = "All" | "Active" | "Completed"
@@ -23,6 +23,7 @@ export const Todolist: React.FC = React.memo((props) => {
         queryFn: () => tasksApi.getTasks(todoId!)
             .then(res => res.data),
         queryKey: ["tasks", todoId],
+        initialData:[]
     })
 
 
@@ -58,7 +59,7 @@ export const Todolist: React.FC = React.memo((props) => {
         : []
     const tasksForRendering = sortedTasks.length
         ? sortedTasks.map(task =>
-            <div onClick={()=>navigate(`task/${task.id}`)} key={task.id} className="m-5 ml-8 text-neutral-700 text-xl
+            <div onClick={()=>navigate(`task/${task.id}`)} key={task.id} className="m-5 ml-8 text-info text-xl
             flex items-center
             ">{task.title}
 
@@ -81,7 +82,7 @@ export const Todolist: React.FC = React.memo((props) => {
 
                 <button
                     onClick={() => navigate("add")}
-                    className="btn  block btn-outline btn-sm my-2 text-neutral hover:bg-neutral hover:text-white">Add a new Task
+                    className="btn  block btn-outline btn-sm my-2 text-neutral hover:bg-accent hover:text-white">Add a new Task
                 </button>
             </div>
 
@@ -118,7 +119,7 @@ export const Todolist: React.FC = React.memo((props) => {
                    placeholder="Search task..."
                    className="input input-bordered placeholder:text-sm text-lg
                     input-sm w-52 border-neutral-300
-                   text-neutral-700 absolute bottom-0 left-0"/>
+                   text-info absolute bottom-0 left-0"/>
             <button
                 className="btn btn-outline border-error btn-sm  text-neutral hover:bg-error absolute bottom-0  right-1"
                 onClick={() => deleteTodolist(todoId)}>Delete this Todo

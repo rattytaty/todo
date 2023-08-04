@@ -12,7 +12,7 @@ export const Layout = () => {
     const isMutating = useIsMutating()
 
     return <div>
-        <div className={"wrapper"}>
+        <div className={"wrapper bg-base-100"}>
             <SideBar/>
             <Outlet/>
         </div>

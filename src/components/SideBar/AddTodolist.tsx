@@ -52,13 +52,13 @@ export const AddTodolist = (props: AddTodolistProps) => {
                    placeholder={formik.touched.title && formik.errors.title
                        ? formik.errors.title
                        : "Add a new todo..."}
-                   className={`input placeholder:text-sm text-lg input-bordered input-sm w-52 border-neutral-300  text-neutral-700 join-item placeholder ${formik.touched.title && formik.errors.title
+                   className={`input placeholder:text-sm text-lg input-bordered input-sm w-52 border-neutral-300  text-info join-item placeholder ${formik.touched.title && formik.errors.title
                        ? "placeholder-error"
                        : ""}`} {...formik.getFieldProps("title")}
                    onBlur={() => formik.setErrors({})}
             />
             <button type={"submit"} className="btn btn-sm btn-circle btn-outline
-            text-neutral-700 border-neutral-300 hover:bg-neutral-300 hover:text-neutral-700">+
+            text-info border-neutral-300 hover:bg-neutral-300 hover:text-info">+
             </button>
         </form>
     </div>

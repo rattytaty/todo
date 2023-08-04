@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import {string} from "yup";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {useParams} from "react-router-dom";
-import {todolistParams} from "./Todolist";
+import {todolistParams} from "../Pages/Todolist";
 import {todolistsApi} from "../../api/api";
 
 type EditTitleProps = {

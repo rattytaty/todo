@@ -5,7 +5,7 @@ import {useFormik} from "formik";
 import * as Yup from "yup";
 import {boolean, string} from "yup";
 import {useNavigate, useParams} from "react-router-dom";
-import {todolistParams} from "./Todolist";
+import {todolistParams} from "../Pages/Todolist";
 
 
 type AddNewTaskFormProps = {
@@ -68,7 +68,7 @@ if(props.data){
         })
     });
 
-    console.log(formik.values)
+
     return <div  >
 
 
@@ -88,7 +88,7 @@ if(props.data){
                        placeholder={formik.touched.title && formik.errors.title
                            ? formik.errors.title
                            : "Task title"}
-                       className={`input input-bordered placeholder:text-sm text-lg input-sm m-2 block w-80 border-neutral-300 text-neutral-700 join-item placeholder ${formik.touched.title && formik.errors.title
+                       className={`input input-bordered placeholder:text-sm text-lg input-sm m-2 block w-80 border-neutral-300 text-info join-item placeholder ${formik.touched.title && formik.errors.title
                            ? "placeholder-error"
                            : ""}`}
                        {...formik.getFieldProps("title")}
@@ -102,7 +102,7 @@ if(props.data){
                     ? formik.errors.description
                     : null}
                             </span>
-                <textarea className="textarea placeholder:text-sm text-lg textarea-bordered block border-neutral-300 m-2 h-44 w-80 text-neutral-700"
+                <textarea className="textarea placeholder:text-sm text-lg textarea-bordered block border-neutral-300 m-2 h-44 w-80 text-info"
                           placeholder="Task description"
                           {...formik.getFieldProps("description")}
                           onBlur={() => formik.setErrors({})}
@@ -115,14 +115,14 @@ if(props.data){
                     className="text-error ">{formik.touched.deadline && formik.errors.deadline
                     ? formik.errors.deadline
                     : null}</span>
-                <input className="block bg-white m-2 text-neutral-700 " type={"datetime-local"} {...formik.getFieldProps("deadline")}
+                <input className="block bg-base-100 m-2 text-info " type={"datetime-local"} {...formik.getFieldProps("deadline")}
                        onBlur={() => formik.setErrors({})}
                 />
             </div>
             <div className="ml-2.5 flex items-center">
                     {props.data
                         ?<><input type="checkbox" className="toggle toggle-success badge-neutral border-success"  {...formik.getFieldProps("completed")}/>
-                        <div className="text-neutral-700">{formik.values.completed?"Task is completed":"Task is not completed"}</div></>
+                        <div className="text-info">{formik.values.completed?"Task is completed":"Task is not completed"}</div></>
                         :null}
                 </div>
 

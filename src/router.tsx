@@ -4,7 +4,7 @@ import {createBrowserRouter} from "react-router-dom";
 
 
 import React from "react";
-import {Todolist} from "./components/Todo/Todolist";
+import {Todolist} from "./components/Pages/Todolist";
 
 import {DetailedTask} from "./components/Todo/DetailedTask";
 import {TaskForm} from "./components/Todo/TaskForm";
