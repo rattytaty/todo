@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.wrapper {
+    width: calc(100vw - 300px);
+    height: 680px;
+    padding: 25px;
+    background-color: #fff;
+    margin: 30px auto;
+    border-radius: 25px;
+    max-width: 1400px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    display: grid;
+    grid-template-columns: 1.5fr 5fr;
+    grid-template-rows: 1fr;
+    position:relative;
+}
+
+
