@@ -11,6 +11,8 @@ export type TaskType = {
     description: string
     deadline: string
     completed: boolean
+    todolistId:string
+    subtasks:string[]
 }
 export type DataForTask = {
     title: string
@@ -18,6 +20,8 @@ export type DataForTask = {
     deadline:string
     completed: boolean
 }
+
+
 
 export const instance = axios.create({
     baseURL: "https://64492e4eb88a78a8f00022cf.mockapi.io/"

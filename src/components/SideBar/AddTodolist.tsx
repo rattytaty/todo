@@ -5,6 +5,7 @@ import {useFormik} from "formik";
 import * as Yup from "yup";
 import {string} from "yup";
 import {useNavigate} from "react-router-dom";
+import {InputField} from "../InputField";
 
 type AddTodolistProps = {
     setSelectedTodo: (todoId: string) => void
@@ -42,24 +43,19 @@ export const AddTodolist = (props: AddTodolistProps) => {
         })
     });
 
-    return <div>
-        <form onSubmit={formik.handleSubmit}>
-            <label className="label">
-    <span className="text-red-500 label-text text-sm -mb-1">
-   </span>
-            </label>
-            <input type="text"
-                   placeholder={formik.touched.title && formik.errors.title
-                       ? formik.errors.title
-                       : "Add a new todo..."}
-                   className={`input placeholder:text-sm text-lg input-bordered input-sm w-52 border-neutral-300  text-info join-item placeholder ${formik.touched.title && formik.errors.title
-                       ? "placeholder-error"
-                       : ""}`} {...formik.getFieldProps("title")}
-                   onBlur={() => formik.setErrors({})}
+    return <form onSubmit={formik.handleSubmit}>
+            <InputField type="text"
+                        placeholder={formik.touched.title && formik.errors.title
+                            ? formik.errors.title
+                            : "Add a new todo..."}
+                        className={`placeholder ${formik.touched.title && formik.errors.title
+                            ? "placeholder-error"
+                            : ""}`}
+                        button
+                        buttonType="submit"
+                        {...formik.getFieldProps("title")}
+                        onBlur={() => formik.setErrors({})}
             />
-            <button type={"submit"} className="btn btn-sm btn-circle btn-outline
-            text-info border-neutral-300 hover:bg-neutral-300 hover:text-info">+
-            </button>
         </form>
-    </div>
+
 };

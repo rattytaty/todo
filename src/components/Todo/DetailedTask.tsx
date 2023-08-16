@@ -5,6 +5,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import {todolistParams} from "../Pages/Todolist";
 import {TaskForm} from './TaskForm';
 import {TaskInfo} from "./TaskInfo";
+import {Button} from "../Button";
 
 
 export const DetailedTask = () => {
@@ -23,9 +24,6 @@ export const DetailedTask = () => {
     })
     const [editMode, setEditMode] = useState(false)
 
-    /*const [date, time] = props.deadline.split("T")
-    const convertedDate = date.split("-").reverse().join("-").replaceAll("-", ".")
-    const convertedTime = time.slice(0, 5)*/
 
     return <div className="relative">
 
@@ -33,20 +31,16 @@ export const DetailedTask = () => {
             ? <TaskForm data={{
                 task: task,
                 setEditMode: setEditMode
-
             }}/>
             : <div>
-                <TaskInfo />
-
-                <button onClick={() => setEditMode(true)}
-                        className="btn  block btn-outline btn-sm  text-neutral hover:bg-neutral hover:text-white absolute bottom-0  left-0">Edit
-                    this Task
-                </button>
-                <button
-                    className="btn  btn-outline border-error btn-sm  text-neutral hover:bg-error hover:text-neutral absolute bottom-0  right-0"
-                    onClick={() => deleteTask()}
-                >Delete this Task
-                </button>
+                <TaskInfo/>
+                <Button onClick={() => setEditMode(true)}
+                        className="absolute bottom-0 left-0"
+                >Edit this Task</Button>
+                <Button variant="red"
+                        className="absolute bottom-0 right-0"
+                        onClick={() => deleteTask()}
+                >Delete this Task</Button>
             </div>}
         </div>
 

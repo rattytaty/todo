@@ -1,15 +1,20 @@
 import React, {ChangeEvent, useEffect, useState} from "react";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
-import {Outlet, useNavigate, useParams} from "react-router-dom";
+import {NavLink, Outlet, useNavigate, useParams} from "react-router-dom";
 import {tasksApi, TaskType, todolistsApi} from "../../api/api";
 import {EditableSpan} from "../Todo/EditableSpan";
 import rightArrow from "../../assets/right-arrow.svg";
+import {TaskStatus} from "../Todo/TaskStatus";
+import {Deadline} from "../Todo/Deadline";
+import {Subtasks} from "../Todo/Subtasks";
+import {Button} from "../Button";
+import {InputField} from "../InputField";
 
 export type filterValues = "All" | "Active" | "Completed"
 
 export type  todolistParams = {
     todoId: string
-    taskId?:string
+    taskId?: string
 }
 
 
@@ -23,7 +28,7 @@ export const Todolist: React.FC = React.memo((props) => {
         queryFn: () => tasksApi.getTasks(todoId!)
             .then(res => res.data),
         queryKey: ["tasks", todoId],
-        initialData:[]
+        initialData: []
     })
 
 
@@ -48,8 +53,7 @@ export const Todolist: React.FC = React.memo((props) => {
     }, [todoId, todolistFilter])
 
 
-
-    const sortedTasks: Array<TaskType> = tasks ?
+    const sortedTasks: TaskType[] = tasks ?
         tasks.filter(({completed}) => {
             if (todolistFilter === "Active") return completed === false;
             else if (todolistFilter === "Completed") return completed === true;
@@ -59,11 +63,24 @@ export const Todolist: React.FC = React.memo((props) => {
         : []
     const tasksForRendering = sortedTasks.length
         ? sortedTasks.map(task =>
-            <div onClick={()=>navigate(`task/${task.id}`)} key={task.id} className="m-5 ml-8 text-info text-xl
-            flex items-center
-            ">{task.title}
 
-                <img className="h-4 inline ml-auto mr-2" alt="Expand info" src={rightArrow}></img>
+
+            <div key={task.id} onClick={() => navigate(`task/${task.id}`)}
+                 className="m-5 ml-8 text-info text-xl hover:bg-neutral-300 ">
+
+                <div className="flex items-center justify-between"><span>{task.title}</span> <img className="h-4"
+                                                                                                  alt="Expand info"
+                                                                                                  src={rightArrow}></img>
+                </div>
+
+
+                <div className="flex items-center justify-between mx-3">
+                    <TaskStatus completed={task.completed}/>
+                    <Subtasks subtasks={task.subtasks}/>
+                    <Deadline deadline={task.deadline}/>
+                </div>
+
+
             </div>)
         : <div className="text-neutral text-lg ">No tasks</div>
 
@@ -75,56 +92,51 @@ export const Todolist: React.FC = React.memo((props) => {
     }
 
 
-    return <div className="grid grid-cols-2 grid-rows-1 relative">
+    return <div className="grid grid-cols-2 grid-rows-1 relative ">
         <div className="text-neutral relative">
-            <EditableSpan />
+            <EditableSpan/>
             <div className="flex justify-center">
-
-                <button
-                    onClick={() => navigate("add")}
-                    className="btn  block btn-outline btn-sm my-2 text-neutral hover:bg-accent hover:text-white">Add a new Task
-                </button>
+                <Button onClick={() => navigate("add")}
+                        className="my-2">Add a new Task</Button>
             </div>
 
             <h1 className="text-neutral text-lg ">Tasks:</h1>
 
             {tasks && tasks.length
-                ?<div title={"Change filter"} className="join flex justify-center">
-                <button className={`btn btn-outline btn-sm join-item 
+                ? <div title={"Change filter"} className="join flex justify-center">
+                    <button className={`btn btn-outline btn-sm join-item 
                 text-neutral border-warning hover:bg-warning
                 ${todolistFilter === "All" ? " bg-warning" : ""} `}
-                        onClick={changeTodolistFilter("All")}
-                >All
-                </button>
-                <button className={`btn btn-outline  btn-sm join-item 
+                            onClick={changeTodolistFilter("All")}
+                    >All
+                    </button>
+                    <button className={`btn btn-outline  btn-sm join-item 
                 text-neutral border-warning hover:bg-warning
                 ${todolistFilter === "Active" ? " bg-warning" : ""}`}
-                        onClick={changeTodolistFilter("Active")}
-                >Active
-                </button>
-                <button className={`btn btn-outline btn-sm join-item 
+                            onClick={changeTodolistFilter("Active")}
+                    >Active
+                    </button>
+                    <button className={`btn btn-outline btn-sm join-item 
                 text-neutral border-warning hover:bg-warning
                 ${todolistFilter === "Completed" ? " bg-warning" : ""}`}
-                        onClick={changeTodolistFilter("Completed")}
-                >Completed
-                </button>
-            </div>
+                            onClick={changeTodolistFilter("Completed")}
+                    >Completed
+                    </button>
+                </div>
                 : null}
-            <div className="overflow-scroll
+            <div className="overflow-y-scroll
              h-[450px]">{tasksForRendering}</div>
 
-            <input type="text"
-                   value={searchValue}
-                   onChange={onChangeSearchValue}
-                   placeholder="Search task..."
-                   className="input input-bordered placeholder:text-sm text-lg
-                    input-sm w-52 border-neutral-300
-                   text-info absolute bottom-0 left-0"/>
-            <button
-                className="btn btn-outline border-error btn-sm  text-neutral hover:bg-error absolute bottom-0  right-1"
-                onClick={() => deleteTodolist(todoId)}>Delete this Todo
-            </button>
-
+            <InputField type="text"
+                        value={searchValue}
+                        onChange={onChangeSearchValue}
+                        placeholder="Search task..."
+                        className="absolute bottom-0 left-0"
+            />
+            <Button variant="red"
+                    onClick={() => deleteTodolist(todoId)}
+                    className="absolute bottom-0 right-1"
+            >Delete this Todo</Button>
         </div>
         <Outlet/>
     </div>

@@ -4,6 +4,7 @@ import '../../App.css';
 import React from "react";
 import {useIsFetching, useIsMutating} from "@tanstack/react-query";
 import {SideBar} from "../SideBar/SideBar";
+import {MainWrapper} from "./MainWrapper";
 
 export const Layout = () => {
 
@@ -12,12 +13,11 @@ export const Layout = () => {
     const isMutating = useIsMutating()
 
     return <div>
-        <div className={"wrapper bg-base-100"}>
+        <MainWrapper>
             <SideBar/>
             <Outlet/>
-        </div>
+        </MainWrapper>
         {/*{isError && <ErrorMessage/>} make error handling*/}
         {(isFetching || isMutating || state === "loading") && <LoadingCircle/>}
-
     </div>
 }

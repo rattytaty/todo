@@ -1,5 +1,5 @@
 import {Layout} from "./components/Pages/Layout";
-import ErrorPage from "./components/Pages/ErrorPage";
+import {ErrorPage} from "./components/Pages/ErrorPage";
 import {createBrowserRouter} from "react-router-dom";
 
 

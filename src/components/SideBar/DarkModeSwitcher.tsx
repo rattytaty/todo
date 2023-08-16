@@ -32,7 +32,7 @@ export const DarkModeSwitcher = () => {
                         <input
                             type="checkbox"
                             onChange={handleToggle}
-                            checked={theme === "myLightTheme" ? false : true}
+                            checked={theme !== "myLightTheme"}
                         />
                         <img src={sun} alt="light" className="w-8 h-8 swap-on" />
                         <img src={moon} alt="dark" className="w-8 h-8 swap-off" />
