@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useEffect, useState} from "react";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
-import {NavLink, Outlet, useNavigate, useParams} from "react-router-dom";
+import {Outlet, useNavigate, useParams} from "react-router-dom";
 import {tasksApi, TaskType, todolistsApi} from "../../api/api";
 import {EditableSpan} from "../Todo/EditableSpan";
 import rightArrow from "../../assets/right-arrow.svg";
@@ -22,13 +22,12 @@ export const Todolist: React.FC = React.memo((props) => {
 
     const navigate = useNavigate()
     const queryClient = useQueryClient()
-    const {todoId} = useParams<keyof todolistParams>() as todolistParams
+    const {todoId, taskId} = useParams<keyof todolistParams>() as todolistParams
 
     const {data: tasks} = useQuery({
         queryFn: () => tasksApi.getTasks(todoId!)
             .then(res => res.data),
-        queryKey: ["tasks", todoId],
-        initialData: []
+        queryKey: ["tasks", todoId]
     })
 
 
@@ -64,22 +63,17 @@ export const Todolist: React.FC = React.memo((props) => {
     const tasksForRendering = sortedTasks.length
         ? sortedTasks.map(task =>
 
-
             <div key={task.id} onClick={() => navigate(`task/${task.id}`)}
-                 className="m-5 ml-8 text-info text-xl hover:bg-neutral-300 ">
+                 className="m-5  text-info text-xl p-2 rounded-lg shadow-[0_3px_6px_rgba(0,0,0,0.16),0_3px_6px_rgba(0,0,0,0.23)] transition-[all_0.3s_cubic-bezier(.25,.8,.25,1)] hover:shadow-[0_14px_28px_rgba(0,0,0,0.25),0_10px_10px_rgba(0,0,0,0.22)] bg-accent">
 
-                <div className="flex items-center justify-between"><span>{task.title}</span> <img className="h-4"
-                                                                                                  alt="Expand info"
-                                                                                                  src={rightArrow}></img>
+                <div className="flex items-center justify-between"><span>{task.title}</span> <img className="h-4" alt="Expand info" src={rightArrow}></img>
                 </div>
 
-
-                <div className="flex items-center justify-between mx-3">
+                <div className="flex items-center justify-between text-base mx-3 ">
                     <TaskStatus completed={task.completed}/>
                     <Subtasks subtasks={task.subtasks}/>
                     <Deadline deadline={task.deadline}/>
                 </div>
-
 
             </div>)
         : <div className="text-neutral text-lg ">No tasks</div>
@@ -90,6 +84,7 @@ export const Todolist: React.FC = React.memo((props) => {
     const onChangeSearchValue = (event: ChangeEvent<HTMLInputElement>) => {
         setSearchValue(event.currentTarget.value)
     }
+
 
 
     return <div className="grid grid-cols-2 grid-rows-1 relative ">
@@ -103,29 +98,20 @@ export const Todolist: React.FC = React.memo((props) => {
             <h1 className="text-neutral text-lg ">Tasks:</h1>
 
             {tasks && tasks.length
-                ? <div title={"Change filter"} className="join flex justify-center">
-                    <button className={`btn btn-outline btn-sm join-item 
-                text-neutral border-warning hover:bg-warning
-                ${todolistFilter === "All" ? " bg-warning" : ""} `}
+                ?
+                <div title={"Change filter"} className="join flex justify-center">
+                    <button className={`btn btn-outline btn-sm join-item text-neutral border-warning hover:bg-warning hover:border-warning ${todolistFilter === "All" ? " bg-warning" : ""} `}
                             onClick={changeTodolistFilter("All")}
-                    >All
-                    </button>
-                    <button className={`btn btn-outline  btn-sm join-item 
-                text-neutral border-warning hover:bg-warning
-                ${todolistFilter === "Active" ? " bg-warning" : ""}`}
+                    >All</button>
+                    <button className={`btn btn-outline btn-sm join-item text-neutral border-warning hover:bg-warning hover:border-warning ${todolistFilter === "Active" ? " bg-warning" : ""}`}
                             onClick={changeTodolistFilter("Active")}
-                    >Active
-                    </button>
-                    <button className={`btn btn-outline btn-sm join-item 
-                text-neutral border-warning hover:bg-warning
-                ${todolistFilter === "Completed" ? " bg-warning" : ""}`}
+                    >Active</button>
+                    <button className={`btn btn-outline btn-sm join-item text-neutral border-warning hover:bg-warning hover:border-warning ${todolistFilter === "Completed" ? " bg-warning" : ""}`}
                             onClick={changeTodolistFilter("Completed")}
-                    >Completed
-                    </button>
+                    >Completed</button>
                 </div>
                 : null}
-            <div className="overflow-y-scroll
-             h-[450px]">{tasksForRendering}</div>
+            <div className="overflow-y-auto h-[450px] ">{tasksForRendering}</div>
 
             <InputField type="text"
                         value={searchValue}

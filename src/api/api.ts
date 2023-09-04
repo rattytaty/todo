@@ -1,6 +1,5 @@
 import axios from "axios";
 
-
 export type TodolistType = {
     id: string
     title: string
@@ -14,14 +13,13 @@ export type TaskType = {
     todolistId:string
     subtasks:string[]
 }
+
 export type DataForTask = {
     title: string
     description: string
     deadline:string
     completed: boolean
 }
-
-
 
 export const instance = axios.create({
     baseURL: "https://64492e4eb88a78a8f00022cf.mockapi.io/"
@@ -41,7 +39,9 @@ export const todolistsApi = {
     },
 }
 export const tasksApi = {
+
     getTasks(todolistId: string) {
+        console.log("getTasks")
         return instance.get<TaskType[]>(`todolists/${todolistId}/tasks`)
     },
     createTask(todolistId: string, data: DataForTask) {

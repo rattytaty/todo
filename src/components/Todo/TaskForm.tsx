@@ -20,25 +20,24 @@ export const TaskForm: React.FC<AddNewTaskFormProps> = React.memo((props) => {
 
     const navigate = useNavigate()
     const {todoId, taskId} = useParams<keyof todolistParams>() as todolistParams
-    const client = useQueryClient()
+    const queryClient = useQueryClient()
     const {mutate: createTask} = useMutation({
         mutationFn: (data: DataForTask) => tasksApi.createTask(todoId, data).then(res => res.data),
         onSuccess: (data) => {
-            client.invalidateQueries({queryKey: ["tasks", todoId]}).then(
+            queryClient.invalidateQueries({queryKey: ["tasks", todoId]}).then(
                 () => navigate(`/todos/${todoId}/task/${data.id}`)
             )
         }
     })
     const {mutate: editTask} = useMutation({
         mutationFn: (data: DataForTask) => tasksApi.updateTask(todoId, taskId!, data),
-        onSuccess: () => client.invalidateQueries({queryKey: ["tasks", todoId]}).then(
+        onSuccess: () => queryClient.invalidateQueries({queryKey: ["tasks", todoId]}).then(
             () => {
                 props.data!.setEditMode(false)
                 navigate(`/todos/${todoId}/task/${taskId}`)
             }
         )
     })
-
 
     const formik = useFormik({
         initialValues: {
@@ -70,7 +69,6 @@ export const TaskForm: React.FC<AddNewTaskFormProps> = React.memo((props) => {
             completed: boolean()
         })
     });
-
 
     return <div>
         <h1 className="text-neutral text-2xl font-semibold">{props.data ? "Edit task:" : "Add new Task:"}</h1>
@@ -118,21 +116,17 @@ export const TaskForm: React.FC<AddNewTaskFormProps> = React.memo((props) => {
                     : null}</span>
                 <input className="block bg-base-100 m-2 text-info "
                        type={"datetime-local"} {...formik.getFieldProps("deadline")}
-                       onBlur={() => formik.setErrors({})}
-                />
+                       onBlur={() => formik.setErrors({})}/>
             </div>
             <div className="ml-2.5 flex items-center">
                 {props.data
                     ? <><input type="checkbox"
                                className="toggle toggle-success badge-neutral border-success"  {...formik.getFieldProps("completed")}/>
-                        <div
-                            className="text-info ml-2">{formik.values.completed ? "Task is completed" : "Task is not completed"}</div>
-                    </>
+                        <div className="text-info ml-2">{formik.values.completed ? "Task is completed" : "Task is not completed"}</div></>
                     : null}
             </div>
             <Button type={"submit"}
-                    className="absolute right-0 bottom-0"
-            >Save</Button>
+                    className="absolute right-0 bottom-0">Save</Button>
         </form>
     </div>
 })

@@ -20,11 +20,11 @@ module.exports = {
           "info": "#2b2929",
           "warning": "#fbbd23",
           "error": "#ed4242",
-
+          "accent": "#f1ecec",
           "success": "#36d399",
+          "secondary": "#262a2d",
+
           "primary": "#641ae6",
-          "secondary": "#d926a9",
-          "accent": "#1fb2a6",
         },
       },
       {
@@ -35,12 +35,11 @@ module.exports = {
           "info": "#f1ecec",
           "warning": "#4124a0",
           "error": "#ba2626",
-
+          "accent": "#2a2f3d",
+          "success": "#36d399",
+          "secondary": "#4124a0",
 
           "primary": "#7d3ce7",
-          "secondary": "#d926a9",
-          "accent": "#4f3284",
-          "success": "#36d399",
         },
       },
 

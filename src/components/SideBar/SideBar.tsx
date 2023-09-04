@@ -31,7 +31,7 @@ export const SideBar: React.FC = React.memo(() => {
     }
     const filteredTodos = todolists?.filter(todo => todo.title.toLowerCase().includes(searchValue.toLowerCase()))
 
-    return <div className="overflow-y-scroll relative">
+    return <div className="overflow-y-auto relative">
         <button onClick={() => navigate("/")} className="text-neutral block text-2xl font-semibold mb-2"
                 title="Home">Home
         </button>

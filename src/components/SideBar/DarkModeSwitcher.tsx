@@ -3,16 +3,14 @@ import sun from "../../assets/sun.svg"
 import moon from "../../assets/moon.svg"
 
 export const DarkModeSwitcher = () => {
+
+    const [theme, setTheme] = useState<string>("myLightTheme")
     useEffect(()=>{
         const myTheme  = localStorage.getItem("theme")
         if (myTheme) {
             setTheme(myTheme)
         }
     },[])
-    const [theme, setTheme] = useState<string>(
-        "myLightTheme"
-    )
-
     const handleToggle = (e:ChangeEvent<HTMLInputElement>) => {
         if (e.target.checked) {
             setTheme("myDarkTheme");
@@ -23,8 +21,7 @@ export const DarkModeSwitcher = () => {
 
     useEffect(() => {
         localStorage.setItem("theme", theme);
-        const localTheme = localStorage.getItem("theme");
-        document.querySelector("html")!.setAttribute("data-theme", localTheme!);
+        document.querySelector("html")!.setAttribute("data-theme", theme);
     }, [theme]);
 
 
