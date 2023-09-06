@@ -5,7 +5,7 @@ import {string} from "yup";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {useParams} from "react-router-dom";
 import {todolistParams} from "../Pages/Todolist";
-import {todolistsApi} from "../../api/api";
+import {todolistsApi} from "../../service/api";
 
 type EditTitleProps = {
     title: string
@@ -14,6 +14,7 @@ type EditTitleProps = {
 
 export const EditTitle: React.FC<EditTitleProps> = React.memo(({title, setEditMode}) => {
 
+    console.log("EditTitle")
     const queryClient = useQueryClient()
     const {todoId} = useParams<keyof todolistParams>() as todolistParams
     const {mutate: editTodolist} = useMutation({
@@ -48,9 +49,7 @@ export const EditTitle: React.FC<EditTitleProps> = React.memo(({title, setEditMo
         <input type="text"
                autoFocus
                placeholder="Todo title..."
-               className={`input input-bordered input-sm  border-neutral-300  
-                       text-neutral text-2xl font-semibold inline -ml-4
-                       placeholder ${formik.touched.title && formik.errors.title
+               className={`input input-bordered input-sm  border-neutral-300 text-neutral text-2xl font-semibold inline -ml-4 placeholder ${formik.touched.title && formik.errors.title
                    ? "placeholder-error"
                    : ""}`} {...formik.getFieldProps("title")}/>
         <span className="text-error ">

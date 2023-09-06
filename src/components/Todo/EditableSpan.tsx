@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import editIcon from "../../assets/editIcon.svg";
 import {useQuery} from "@tanstack/react-query";
-import {TodolistType} from "../../api/api";
+import {TodolistType} from "../../service/api";
 import {useParams} from "react-router-dom";
 import {todolistParams} from "../Pages/Todolist";
 import {EditTitle} from "./EditTitle";
@@ -9,6 +9,7 @@ import {EditTitle} from "./EditTitle";
 
 export const EditableSpan: React.FC = React.memo(() => {
 
+    console.log("EditableSpan")
     const {todoId} = useParams<keyof todolistParams>() as todolistParams
     const title = useQuery<TodolistType[]>({queryKey: ["todolists"]}).data?.find(todo => todo.id === todoId)?.title!
     const [editMode, setEditMode] = useState(false)

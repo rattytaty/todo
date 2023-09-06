@@ -1,23 +1,23 @@
 import React from 'react';
 
-export const Subtasks = (props: { subtasks: string[], long?: boolean }) => {
+type subtasksProps = {
+    subtasks: string[],
+    long?: boolean
+}
+export const Subtasks: React.FC<subtasksProps> = React.memo(({subtasks, long}) => {
 
-    const subtasksAmount = <span><span className="font-bold">{props.subtasks.length}</span> Subtasks</span>
+    const subtasksAmount = <span><span className="font-bold">{subtasks.length}</span> Subtasks</span>
+    const subtasksList = subtasks.map((el, i) =>
+        <div className="m-2" key={i}>
+            <span>{i + 1}. {el}</span>
+        </div>)
 
     return <div className="text-info">
-        {props.long
-            ? <div>{props.subtasks.length
-                ? <div>{subtasksAmount}:</div>
-                : <div>{subtasksAmount}</div>}
-            </div>
-            : <div> {props.subtasks.length
+        {long
+            ? <div>{subtasksAmount}</div>
+            : <div>{subtasks.length
                 ? subtasksAmount
-                : null}
-            </div>
-        }
-        {props.long && props.subtasks.map((el, i) =>
-            <div className="m-2" key={i}>
-                <span>{i+1}. </span>
-                {el}</div>)}
+                : null} </div>}
+        {long && subtasksList}
     </div>
-};
+})

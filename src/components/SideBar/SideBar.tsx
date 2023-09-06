@@ -1,14 +1,15 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {NavLink, useLocation, useNavigate, useParams} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
-import {todolistsApi} from "../../api/api";
+import {todolistsApi} from "../../service/api";
 import {AddTodolist} from "./AddTodolist";
 import {DarkModeSwitcher} from "./DarkModeSwitcher";
 import todolistIcon from "../../assets/todolistIcon.svg";
 import {todolistParams} from "../Pages/Todolist";
-import {InputField} from "../InputField";
+import {InputField} from "../UniversalComponents/InputField";
 
 export const SideBar: React.FC = React.memo(() => {
+    console.log("SideBar")
     const navigate = useNavigate()
     const {data: todolists} = useQuery({
         queryFn: () => todolistsApi.getTodolists().then(res => res.data),
@@ -19,9 +20,7 @@ export const SideBar: React.FC = React.memo(() => {
     const location = useLocation()
     const {todoId} = useParams<keyof todolistParams>() as todolistParams
     useEffect(() => {
-        if (!location.pathname.includes("/todos/")) {
-            setSelectedTodo("")
-        } else {
+        if (location.pathname.includes("/todos/")) {
             setSelectedTodo(todoId)
         }
     }, [location.pathname, todoId])
@@ -41,7 +40,7 @@ export const SideBar: React.FC = React.memo(() => {
                     value={searchValue}
                     onChange={onChangeSearchValue}
         />
-        <h1 className="text-neutral text-lg mt-2">Todos:</h1>
+        <h1 className="text-neutral text-lg mt-2">Todolists:</h1>
         <div className="h-96">
             {filteredTodos.length
                 ? filteredTodos.map(todolist => <NavLink
@@ -54,7 +53,7 @@ export const SideBar: React.FC = React.memo(() => {
                     <img className="inline mb-1" alt="Todo Icon" src={todolistIcon}></img>
                     {todolist.title}</NavLink>
                 )
-                : <div className="text-neutral text-lg">No todos with such title.</div>
+                : <div className="text-neutral text-lg">No todolists.</div>
             }
             <div className="absolute bottom-0">
                 <DarkModeSwitcher/>

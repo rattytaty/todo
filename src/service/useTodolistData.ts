@@ -1,5 +1,6 @@
 import {useQuery} from "@tanstack/react-query";
-import {tasksApi} from "../../api/api";
+import {tasksApi} from "./api";
+
 
 export const useTodolistData = (todoId:string)=>{
     const {data: tasks} = useQuery({

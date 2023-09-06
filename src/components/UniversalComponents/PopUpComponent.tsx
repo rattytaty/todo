@@ -2,11 +2,10 @@ import React from "react";
 
 export type PopUpProps = {
     isPopUpActive: boolean
-    setIsPopUpActive: (value: boolean) => void
-    children?: React.ReactNode
+    children: React.ReactNode
 }
 
-export const PopUpComponent: React.FC<PopUpProps> = React.memo(({isPopUpActive, setIsPopUpActive, children}) => {
+export const PopUpComponent: React.FC<PopUpProps> = React.memo(({isPopUpActive, children}) => {
 
     return isPopUpActive
         ?<div className=" bg-black/90 flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none ">
@@ -17,6 +16,5 @@ export const PopUpComponent: React.FC<PopUpProps> = React.memo(({isPopUpActive, 
             </div>
         </div>
      : null
-
 })
 

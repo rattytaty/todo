@@ -21,7 +21,7 @@ module.exports = {
           "warning": "#fbbd23",
           "error": "#ed4242",
           "accent": "#f1ecec",
-          "success": "#36d399",
+          "success": "#11c565",
           "secondary": "#262a2d",
 
           "primary": "#641ae6",
@@ -36,7 +36,7 @@ module.exports = {
           "warning": "#4124a0",
           "error": "#ba2626",
           "accent": "#2a2f3d",
-          "success": "#36d399",
+          "success": "#11c565",
           "secondary": "#4124a0",
 
           "primary": "#7d3ce7",

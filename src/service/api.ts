@@ -10,15 +10,16 @@ export type TaskType = {
     description: string
     deadline: string
     completed: boolean
-    todolistId:string
-    subtasks:string[]
+    todolistId: string
+    subtasks: string[]
 }
 
 export type DataForTask = {
     title: string
     description: string
-    deadline:string
+    deadline: string
     completed: boolean
+    subtasks: string[]
 }
 
 export const instance = axios.create({
@@ -41,7 +42,6 @@ export const todolistsApi = {
 export const tasksApi = {
 
     getTasks(todolistId: string) {
-        console.log("getTasks")
         return instance.get<TaskType[]>(`todolists/${todolistId}/tasks`)
     },
     createTask(todolistId: string, data: DataForTask) {
@@ -53,6 +53,9 @@ export const tasksApi = {
     },
     updateTask(todolistId: string, taskId: string, data: DataForTask) {
         return instance.put<TaskType>(`todolists/${todolistId}/tasks/${taskId}`, data)
+    },
+    upd(todolistId: string, taskId: string, data: {completed:boolean}) {
+        return instance.patch(`todolists/${todolistId}/tasks/${taskId}`, data)
     }
 }
 

@@ -1,12 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-
-import reportWebVitals from './reportWebVitals';
-
 import {RouterProvider} from "react-router-dom";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
-import {router} from "./router";
+import {router} from "./service/router";
 import {LoadingCircle} from "./components/AppStatusComponents/LoadingCircle";
 
 
@@ -28,4 +25,3 @@ root.render(
 );
 
 
-reportWebVitals();

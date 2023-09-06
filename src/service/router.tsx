@@ -1,14 +1,11 @@
-import {Layout} from "./components/Pages/Layout";
-import {ErrorPage} from "./components/Pages/ErrorPage";
+import {Layout} from "../components/Pages/Layout";
+import {ErrorPage} from "../components/Pages/ErrorPage";
 import {createBrowserRouter} from "react-router-dom";
-
-
 import React from "react";
-import {Todolist} from "./components/Pages/Todolist";
-
-import {DetailedTask} from "./components/Todo/DetailedTask";
-import {TaskForm} from "./components/Todo/TaskForm";
-import {HomePage} from "./components/Pages/HomePage";
+import {Todolist} from "../components/Pages/Todolist";
+import {DetailedTask} from "../components/Todo/DetailedTask";
+import {TaskForm} from "../components/Todo/TaskForm";
+import {HomePage} from "../components/Pages/HomePage";
 
 
 export const router = createBrowserRouter([{

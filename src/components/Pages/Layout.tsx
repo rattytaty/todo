@@ -6,7 +6,7 @@ import {useIsFetching, useIsMutating} from "@tanstack/react-query";
 import {SideBar} from "../SideBar/SideBar";
 import {MainWrapper} from "./MainWrapper";
 
-export const Layout = () => {
+export const Layout=()=>{
 
     const {state} = useNavigation()
     const isFetching = useIsFetching()
@@ -17,7 +17,9 @@ export const Layout = () => {
             <SideBar/>
             <Outlet/>
         </MainWrapper>
-        {/*{isError && <ErrorMessage/>} make error handling*/}
-        {(isFetching || isMutating || state === "loading") && <LoadingCircle/>}
+        <div>
+            {/*{isError && <ErrorMessage/>} make error handling*/}
+            {(isFetching || isMutating || state === "loading") && <LoadingCircle/>}
+        </div>
     </div>
 }

@@ -1,11 +1,9 @@
 import React from "react";
-import {Link, NavLink} from "react-router-dom";
-import {Button} from "../Button";
-import {InputField} from "../InputField";
+import {NavLink} from "react-router-dom";
 
 
 export const HomePage: React.FC = React.memo(() => {
-
+    console.log("HomePage")
     return <div>
         <p>This is a Todo app build with:</p>
         <ul className="text-info m-2">

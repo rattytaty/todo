@@ -1,18 +1,18 @@
 import React, {useState} from 'react';
-import {tasksApi, TaskType} from "../../api/api";
+import {tasksApi, TaskType} from "../../service/api";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {useNavigate, useParams} from "react-router-dom";
 import {todolistParams} from "../Pages/Todolist";
 import {TaskForm} from './TaskForm';
 import {TaskInfo} from "./TaskInfo";
-import {Button} from "../Button";
+import {Button} from "../UniversalComponents/Button";
 
 
 export const DetailedTask = () => {
+    console.log("DetailedTask")
     const navigate = useNavigate()
     const {todoId, taskId} = useParams<keyof todolistParams>() as todolistParams
     const task = useQuery<TaskType[]>(["tasks", todoId]).data!.find(task => task.id === taskId)!
-
 
     const queryClient = useQueryClient()
     const {mutate: deleteTask} = useMutation({
@@ -24,10 +24,8 @@ export const DetailedTask = () => {
     })
     const [editMode, setEditMode] = useState(false)
 
-
     return <div className="relative">
-
-        <div>{editMode
+        {editMode
             ? <TaskForm data={{
                 task: task,
                 setEditMode: setEditMode
@@ -42,8 +40,6 @@ export const DetailedTask = () => {
                         onClick={() => deleteTask()}
                 >Delete this Task</Button>
             </div>}
-        </div>
-
 
     </div>
 };
