@@ -18,7 +18,6 @@ type AddNewTaskFormProps = {
 }
 export const TaskForm: React.FC<AddNewTaskFormProps> = React.memo(({data}) => {
 
-    console.log("TaskForm")
     const navigate = useNavigate()
     const {todoId, taskId} = useParams<keyof todolistParams>() as todolistParams
     const queryClient = useQueryClient()

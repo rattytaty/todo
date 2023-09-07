@@ -21,7 +21,7 @@ export type  todolistParams = {
 
 
 export const Todolist: React.FC = React.memo(() => {
-    console.log("Todolist")
+
     const navigate = useNavigate()
 
     const {todoId} = useParams<keyof todolistParams>() as todolistParams

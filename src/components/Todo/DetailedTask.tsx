@@ -9,7 +9,7 @@ import {Button} from "../UniversalComponents/Button";
 
 
 export const DetailedTask = () => {
-    console.log("DetailedTask")
+
     const navigate = useNavigate()
     const {todoId, taskId} = useParams<keyof todolistParams>() as todolistParams
     const task = useQuery<TaskType[]>(["tasks", todoId]).data!.find(task => task.id === taskId)!

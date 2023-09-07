@@ -9,7 +9,7 @@ import {todolistParams} from "../Pages/Todolist";
 import {InputField} from "../UniversalComponents/InputField";
 
 export const SideBar: React.FC = React.memo(() => {
-    console.log("SideBar")
+
     const navigate = useNavigate()
     const {data: todolists} = useQuery({
         queryFn: () => todolistsApi.getTodolists().then(res => res.data),

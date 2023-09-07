@@ -9,7 +9,6 @@ import {EditTitle} from "./EditTitle";
 
 export const EditableSpan: React.FC = React.memo(() => {
 
-    console.log("EditableSpan")
     const {todoId} = useParams<keyof todolistParams>() as todolistParams
     const title = useQuery<TodolistType[]>({queryKey: ["todolists"]}).data?.find(todo => todo.id === todoId)?.title!
     const [editMode, setEditMode] = useState(false)

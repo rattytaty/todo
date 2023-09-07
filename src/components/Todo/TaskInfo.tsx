@@ -9,8 +9,6 @@ import {Subtasks} from "./Subtasks";
 
 export const TaskInfo: React.FC = React.memo(() => {
 
-    console.log("TaskInfo")
-
     const {todoId, taskId} = useParams<keyof todolistParams>() as todolistParams
     const task = useQuery<TaskType[]>(["tasks", todoId]).data?.find(task => task.id === taskId)!
     const {

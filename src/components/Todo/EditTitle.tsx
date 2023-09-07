@@ -14,7 +14,6 @@ type EditTitleProps = {
 
 export const EditTitle: React.FC<EditTitleProps> = React.memo(({title, setEditMode}) => {
 
-    console.log("EditTitle")
     const queryClient = useQueryClient()
     const {todoId} = useParams<keyof todolistParams>() as todolistParams
     const {mutate: editTodolist} = useMutation({
