@@ -1,10 +1,10 @@
-Todolist project using:
+Project is hosted on Vercel:
+https://todo-ten-pied.vercel.app/
+Todolist using:
 - React
 - TypeScript
-- Tailwind Css
-- daisyUI
-- Axios
-- formik
-- yup
+- Tailwind CSS + daisyUI
+- Axios(responses from MockAPI)
+- formik + YUP
 - tanstack/react-query
-- react-router-dom
+- react-router-dom v6
