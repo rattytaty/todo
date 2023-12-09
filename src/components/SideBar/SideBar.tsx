@@ -30,36 +30,50 @@ export const SideBar: React.FC = React.memo(() => {
     }
     const filteredTodos = todolists?.filter(todo => todo.title.toLowerCase().includes(searchValue.toLowerCase()))
 
-    return <div className="overflow-y-auto relative">
-        <button onClick={() => navigate("/")} className="text-neutral block text-2xl font-semibold mb-2"
-                title="Home">Home
-        </button>
+    return <div className="drawer lg:drawer-open z-40">
+        <input id="my-drawer-2" type="checkbox" className="drawer-toggle"/>
+        <div className="drawer-content h-6">
+            <label htmlFor="my-drawer-2" className=" lg:hidden">
+                <img className="inline cursor-pointer mb-1" alt="Todo Icon" src={todolistIcon}></img>
+            </label>
+        </div>
+        <div className="drawer-side h-full ">
+            <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
+            <div className="p-6 lg:p-0 w-60 h-full bg-base-100 overflow-y-auto relative">
+                <button onClick={() => navigate("/")} className="text-neutral block text-2xl font-semibold mb-2"
+                        title="Home">Home
+                </button>
 
-        <InputField type="text"
-                    placeholder="Search todo..."
-                    value={searchValue}
-                    onChange={onChangeSearchValue}
-        />
-        <h1 className="text-neutral text-lg mt-2">Todolists:</h1>
-        <div className="h-96">
-            {filteredTodos.length
-                ? filteredTodos.map(todolist => <NavLink
-                    onClick={() => setSelectedTodo(todolist.id)}
-                    className={`link link-hover block  text-info m-2.5 
+                <InputField type="text"
+                            placeholder="Search todo..."
+                            value={searchValue}
+                            onChange={onChangeSearchValue}
+                />
+                <h1 className="text-neutral text-lg mt-2">Todolists:</h1>
+                <div className="">
+                    {filteredTodos.length
+                        ? filteredTodos.map(todolist => <NavLink
+                            onClick={() => setSelectedTodo(todolist.id)}
+                            className={`link link-hover block  text-info m-2.5 
                 ${todolist.id === selectedTodo ? "font-semibold ml-5" : ""}
                 `}
-                    to={`/todos/${todolist.id}`}
-                    key={todolist.id}>
-                    <img className="inline mb-1" alt="Todo Icon" src={todolistIcon}></img>
-                    {todolist.title}</NavLink>
-                )
-                : <div className="text-neutral text-lg">No todolists.</div>
-            }
-            <div className="absolute bottom-0">
-                <DarkModeSwitcher/>
-                <AddTodolist setSelectedTodo={setSelectedTodo}/>
+                            to={`/todos/${todolist.id}`}
+                            key={todolist.id}>
+                            <img className="inline mb-1" alt="Todo Icon" src={todolistIcon}></img>
+                            {todolist.title}</NavLink>
+                        )
+                        : <div className="text-neutral text-lg">No todolists.</div>
+                    }
+                    <div className="absolute bottom-0">
+                        <DarkModeSwitcher/>
+                        <AddTodolist setSelectedTodo={setSelectedTodo}/>
+                    </div>
+                </div>
             </div>
+
         </div>
     </div>
+
+
 })
 

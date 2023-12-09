@@ -31,15 +31,14 @@ export const DetailedTask = () => {
                 setEditMode: setEditMode
             }}/>
             : <div>
-                <TaskInfo/>
-                <Button onClick={() => setEditMode(true)}
-                        className="absolute bottom-0 left-0"
-                >Edit this Task</Button>
-                <Button variant="red"
-                        className="absolute bottom-0 right-0"
-                        onClick={() => deleteTask()}
-                >Delete this Task</Button>
+               <TaskInfo/>
+                <div className="flex justify-between items-center">
+                    <Button onClick={() => setEditMode(true)}
+                            className="lg:absolute lg:bottom-0 lg:left-0">Edit this Task</Button>
+                    <Button variant="red"
+                            className="lg:absolute lg:bottom-0 lg:right-0"
+                            onClick={() => deleteTask()}>Delete this Task</Button>
+                </div>
             </div>}
-
     </div>
 };
