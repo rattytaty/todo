@@ -1,16 +1,16 @@
 import React, {ChangeEvent, useEffect, useState} from "react";
-import {useQuery} from "@tanstack/react-query";
 import {Outlet, useNavigate, useParams} from "react-router-dom";
-import {tasksApi, TaskType} from "../../service/api";
-import {EditableSpan} from "../Todo/EditableSpan";
+import {TaskType} from "../../service/api";
+import {EditableSpan} from "../TodolistCompomemts/EditableSpan";
 import rightArrow from "../../assets/right-arrow.svg";
-import {TaskStatus} from "../Todo/TaskStatus";
-import {Deadline} from "../Todo/Deadline";
-import {Subtasks} from "../Todo/Subtasks";
+import {TaskStatus} from "../TodolistCompomemts/TaskStatus";
+import {Deadline} from "../TodolistCompomemts/Deadline";
+import {Subtasks} from "../TodolistCompomemts/Subtasks";
 import {Button} from "../UniversalComponents/Button";
 import {InputField} from "../UniversalComponents/InputField";
 import {PopUpComponent} from "../UniversalComponents/PopUpComponent";
-import {DeleteTodolistModal} from "../Todo/DeleteTodolistModal";
+import {DeleteTodolistModal} from "../TodolistCompomemts/DeleteTodolistModal";
+import {useTodolistData} from "../../service/useTodolistData";
 
 export type filterValues = "All" | "Active" | "Completed"
 
@@ -23,14 +23,9 @@ export type  todolistParams = {
 export const Todolist: React.FC = React.memo(() => {
 
     const navigate = useNavigate()
-
     const {todoId} = useParams<keyof todolistParams>() as todolistParams
 
-    const {data: tasks} = useQuery({
-        queryFn: () => tasksApi.getTasks(todoId!)
-            .then(res => res.data),
-        queryKey: ["tasks", todoId]
-    })
+    const tasks = useTodolistData(todoId!)
 
     const [searchValue, setSearchValue] = useState<string>("")
     const [todolistFilter, setTodolistFilter] = useState<filterValues>("All")
@@ -55,7 +50,6 @@ export const Todolist: React.FC = React.memo(() => {
 
     const tasksForRendering = sortedTasks.length
         ? sortedTasks.map(task =>
-
             <div key={task.id} onClick={() => {
                 navigate(`task/${task.id}`)
                 setSelectedTask(task.id)
@@ -76,7 +70,7 @@ export const Todolist: React.FC = React.memo(() => {
                 </div>
 
             </div>)
-        : <div className="text-neutral text-lg ">No tasks</div>
+        : <div className="text-neutral text-lg ">No tasks!</div>
 
     const changeTodolistFilter = (filterValue: filterValues) => () => {
         setTodolistFilter(filterValue)
@@ -87,40 +81,27 @@ export const Todolist: React.FC = React.memo(() => {
 
     const [modalActive, setModalActive] = useState(false)
 
-    return <div className="grid
-    grid-rows-1
-    lg:grid-cols-2 lg:grid-rows-1 relative ">
+    const FilterButton = (filter:filterValues)=><Button variant="yellow"
+                                     onClick={changeTodolistFilter(filter)} className={`join-item ${todolistFilter === filter ? " bg-warning" : ""}` }>{filter}</Button>
+
+    return <div className="grid grid-rows-1 lg:grid-cols-2 lg:grid-rows-1 relative ">
         <div className="text-neutral relative">
             <EditableSpan/>
             <div className="flex justify-center">
                 <Button onClick={() => navigate("add")}
                         className="my-2">Add a new Task</Button>
             </div>
-
             <h1 className="text-neutral text-lg ">Tasks:</h1>
-
-            {tasks && tasks.length
-                ?
-                <div title={"Change filter"} className="join flex justify-center">
-                    <button
-                        className={`btn btn-outline btn-sm join-item text-neutral border-warning hover:bg-warning hover:border-warning ${todolistFilter === "All" ? " bg-warning" : ""} `}
-                        onClick={changeTodolistFilter("All")}
-                    >All
-                    </button>
-                    <button
-                        className={`btn btn-outline btn-sm join-item text-neutral border-warning hover:bg-warning hover:border-warning ${todolistFilter === "Active" ? " bg-warning" : ""}`}
-                        onClick={changeTodolistFilter("Active")}
-                    >Active
-                    </button>
-                    <button
-                        className={`btn btn-outline btn-sm join-item text-neutral border-warning hover:bg-warning hover:border-warning ${todolistFilter === "Completed" ? " bg-warning" : ""}`}
-                        onClick={changeTodolistFilter("Completed")}
-                    >Completed
-                    </button>
+            {tasks?.length
+                ?<div title={"Change filter"} className="join flex justify-center">
+                    {FilterButton("All")}
+                    {FilterButton("Active")}
+                    {FilterButton("Completed")}
                 </div>
                 : null}
-            <div className="overflow-y-auto  ">{tasksForRendering}</div>
-            <div className="flex justify-between items-center"><InputField type="text"
+            <div className="overflow-y-auto">{tasksForRendering}</div>
+            <div className="flex justify-between items-center">
+                <InputField type="text"
                              value={searchValue}
                              onChange={onChangeSearchValue}
                              placeholder="Search task..."
@@ -136,5 +117,3 @@ export const Todolist: React.FC = React.memo(() => {
         <Outlet/>
     </div>
 })
-
-

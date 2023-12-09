@@ -3,8 +3,8 @@ import {ErrorPage} from "../components/Pages/ErrorPage";
 import {createBrowserRouter} from "react-router-dom";
 import React from "react";
 import {Todolist} from "../components/Pages/Todolist";
-import {DetailedTask} from "../components/Todo/DetailedTask";
-import {TaskForm} from "../components/Todo/TaskForm";
+import {DetailedTask} from "../components/TodolistCompomemts/DetailedTask";
+import {TaskForm} from "../components/TodolistCompomemts/TaskForm";
 import {HomePage} from "../components/Pages/HomePage";
 
 

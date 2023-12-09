@@ -6,7 +6,7 @@ export const MainWrapper = (props: { children: ReactNode }) => {
     return <div className="bg-base-100 p-6 xl:rounded-3xl
     grid relative
     lg:grid-rows-[1fr] lg:grid-cols-[0.3fr_5fr]
-    min-h-full lg:min-h-max
+    min-h-screen lg:min-h-max
     h-max
     lg:h-[100vh] w-full mx-auto my-auto
     xl:h-[90vh] xl:my-10

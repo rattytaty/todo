@@ -8,6 +8,5 @@ export const useTodolistData = (todoId:string)=>{
             .then(res => res.data),
         queryKey: ["tasks", todoId]
     })
-
     return tasks
 }
